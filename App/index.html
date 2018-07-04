@@ -5,27 +5,50 @@
 	<script type="text/javascript" src="Librerias/jquery/jquery.min.js"></script>
 	<script> 
 		var tablero=[0,0,0,0,0,0];
-	 	for (var i = 0; i < tablero.length; i++) {
-	 		tablero[i]=['V','V','V','V','V','V','V'];
-	 		}
-	 	console.log(JSON.stringify(tablero));
+		for (var i = 0; i < tablero.length; i++) {
+			tablero[i]=['V','V','V','V','V','V','V'];
+		}
+		console.log(JSON.stringify(tablero));
+		function sumarFila(numeroDeFila) {
+			var fila= "";
+			for (var i = 0; i < tablero[numeroDeFila].length; i++) {
+				fila = fila +tablero[numeroDeFila][i];
+			}
+			return fila;
+		}
+		function sumarColumna(numeroDeColumna) {
+			var fila= "";
+			for (var i = 0; i < tablero.length; i++) {
+				fila = fila +tablero[i][numeroDeColumna];
+			}
+			return fila;
+		}
+		var partidasA = [[2,0],[1,0],[0,0],[0,1],[0,2],[0,3]];
+		function sumarDiagonalA(puntoDePartida){
+			var fila= puntoDePartida[0];
+			var columna=puntoDePartida[1];
+			var celda= 1;
+			var fila2= "";
+			
+			for (var i = 0; i < 7; i++) {
 
-	 		function sumarFila(numeroDeFila) {
-	 			var fila= "";
-	 			for (var i = 0; i < tablero[numeroDeFila].length; i++) {
-	 				fila = fila +tablero[numeroDeFila][i];
-
-
-	 			}
-	 			return fila;
-
-	 			// body...
-	 		}
-	 	</script>
+				if (tablero[fila+i]){
+					if(tablero[fila+i][columna+i]){
+					celda= tablero[fila+i][columna+i];
+					fila2= fila2 + celda;
+	
+					}
+					
+				}
+			}
+			return fila2;
+			
+		}
+	</script>
 
 
 </head>
 <body>
-			
+
 </body>
 </html>
