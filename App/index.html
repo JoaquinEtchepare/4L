@@ -9,7 +9,18 @@
 	 		tablero[i]=[0,0,0,0,0,0,0];
 	 		}
 	 	console.log(JSON.stringify(tablero));
-	 </script>
+	 		function sumarFila(numeroDeFila) {
+	 			var fila= "";
+	 			for (var i = 0; i < tablero[numeroDeFila].length; i++) {
+	 				fila = fila +tablero[numeroDeFila][i];
+
+
+	 			}
+	 			return fila;
+
+	 			// body...
+	 		}
+	 	</script>
 		
 </head>
 <body>
