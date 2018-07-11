@@ -44,6 +44,29 @@
 			return fila2;
 			
 		}
+
+		var partidasB = [[2,6],[1,6],[0,6],[0,5],[0,4],[0,3]];
+		function sumarDiagonalB(puntoDePartida){
+			var fila= puntoDePartida[0];
+			var columna=puntoDePartida[1];
+			var celda= 1;
+			var fila3= "";
+			
+			for (var i = 0; i < 7; i++) {
+
+				if (tablero[fila+i]){
+					if(tablero[fila+i][columna-i]){
+					celda= tablero[fila+i][columna-i];
+					fila3= fila3 + celda;
+	
+					}
+					
+				}
+			}
+			return fila3;
+			
+		}
+		
 	</script>
 
 
