@@ -1,4 +1,4 @@
-td {
+.cell {
     background-image: -moz-radial-gradient( 50% 50%, circle closest-side, rgb(255, 255, 255) 19%, rgb(255, 255, 255) 72%, rgb(128, 130, 177) 76%, rgb(0, 5, 98) 78%, rgb(4, 13, 197) 79%, rgb(0, 52, 129) 84%, rgb(0, 5, 98) 95%);
     background-image: -webkit-radial-gradient( 50% 50%, circle closest-side, rgb(255, 255, 255) 19%, rgb(255, 255, 255) 72%, rgb(128, 130, 177) 76%, rgb(0, 5, 98) 78%, rgb(4, 13, 197) 79%, rgb(0, 52, 129) 84%, rgb(0, 5, 98) 95%);
     background-image: -ms-radial-gradient( 50% 50%, circle closest-side, rgb(255, 255, 255) 19%, rgb(255, 255, 255) 72%, rgb(128, 130, 177) 76%, rgb(0, 5, 98) 78%, rgb(4, 13, 197) 79%, rgb(0, 52, 129) 84%, rgb(0, 5, 98) 95%);

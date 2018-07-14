@@ -21,8 +21,9 @@
             <br>
             <div>
                 <button type="button" onclick="playBtn()" class="btn btn-danger btn-lg">JUGAR</button>
-                <button type="button" onclick="loadBtn()" class="btn btn-danger btn-lg">CARGAR PARTIDA</button>
-                <button type="button" onclick="rankBtn()" class="btn btn-danger btn-lg">RANKING</button>
+                <button type="button" onclick="seleccionarPartida()" class="btn btn-danger btn-lg">CARGAR PARTIDA</button>
+                <button type="button"  data-toggle="modal" data-target=".ranking-modal" class="btn btn-danger btn-lg">RANKING</button>
+                <button type="button" onclick="ayudaBtn()" class="btn btn-danger btn-lg">AYUDA</button>
             </div>
         </div>
     </div>
@@ -51,13 +52,39 @@
             <div style="position: absolute; top: 400px; left: 50px;">
                 <span id="player"></span><br>
                 <button type="button" onclick="menuBtn()" class="btn btn-danger btn-lg custom btn">MENU</button>
-                <button type="button" onclick="saveBtn()" class="btn btn-danger btn-lg custombtn">GUARDAR</button>
+                <button type="button" onclick="guardarPartida()" class="btn btn-danger btn-lg custombtn">GUARDAR</button>
                 <br>
 
             </div>
 
         </div>
     </div>
+    <!-- Large modal -->
+
+<div class="modal fade bd-example-modal-lg ranking-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">RANKING</h5>
+     
+      </div>
+      <div class="modal-body" >
+    <table>
+        <thead>
+            <th>#</th>
+            <th>Jugador</th>
+            <th>Tiempo</th>
+        </thead>
+        <tbody id="ranking"></tbody>
+    </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </body>
 
 </html>
