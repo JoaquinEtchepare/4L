@@ -250,6 +250,8 @@ function playBtn() {
             drawTable();
             cursorE = true;
             cursor();
+            offset2 = Date.now();
+            offset = Date.now();
             $(".knob").knob({
 
             });
