@@ -6,6 +6,10 @@ var aCrono = 0;
 var rCrono = 0;
 var offset = Date.now();
 var offset2 = Date.now();
+var ranking = JSON.parse(localStorage.getItem("ranking"));
+if (ranking == null)
+    ranking = [];
+localStorage.setItem("ranking", JSON.stringify(ranking));
 if (!tablero) {
     var tablero = [0, 0, 0, 0, 0, 0];
     for (var i = 0; i < tablero.length; i++) {
@@ -66,6 +70,7 @@ function sumarDiagonalB(puntoDePartida) {
     return fila3;
 }
 
+
 function drawTable() {
     var tableBody = document.getElementById('4Ltable');
     tableBody.innerHTML = "";
@@ -82,7 +87,7 @@ function drawTable() {
             var k = i;
             cell.addEventListener("click", function (e) {
                 if (cursorE == true) {
-                    cursorE = false;
+                    
 
                     function onComplete() {
                         if (rojo == true)
@@ -104,13 +109,16 @@ function drawTable() {
                     var x = 0 + 121 * (k + 0.5);
                     var y = 0 + 94 * (i + 0.5);
                     var old = $('#cursor').position();
+                    if (i>-1) {
+                        cursorE = false;
+                        $("#cursor").animate({
+                            left: x.toString() + 'px'
+                        }, "fast");
+                        $("#cursor").animate({
+                            top: y.toString() + 'px'
+                        }, "slow", onComplete);
+                    }
 
-                    $("#cursor").animate({
-                        left: x.toString() + 'px'
-                    }, "fast");
-                    $("#cursor").animate({
-                        top: y.toString() + 'px'
-                    }, "slow", onComplete);
                 }
             });
             i++;
@@ -119,9 +127,55 @@ function drawTable() {
 
         tableBody.appendChild(row);
     });
+    check();
 }
 
+function check() {
 
+    for (i = 0; i < 6; i++) {
+        if (sumarFila(i).indexOf("RRRR") >= 0)
+            gano(pRojo, rCrono);
+        if (sumarFila(i).indexOf("AAAA") >= 0)
+            gano(pAmarillo, aCrono);
+    }
+    for (i = 0; i < 7; i++) {
+        if (sumarColumna(i).indexOf("RRRR") >= 0)
+            gano(pRojo, rCrono);
+        if (sumarColumna(i).indexOf("AAAA") >= 0)
+            gano(pAmarillo, aCrono);
+    }
+    partidasA.forEach(function (item) {
+        if (sumarDiagonalA(item).indexOf("AAAA") >= 0)
+            gano(pAmarillo, aCrono);
+        if (sumarDiagonalA(item).indexOf("RRRR") >= 0)
+            gano(pRojo, rCrono);
+    });
+    partidasB.forEach(function (item) {
+        if (sumarDiagonalB(item).indexOf("AAAA") >= 0)
+            gano(pAmarillo, aCrono);
+        if (sumarDiagonalB(item).indexOf("RRRR") >= 0)
+            gano(pRojo, rCrono);
+    });
+}
+
+function gano(player, crono) {
+    ranking.push({
+        jugador: player,
+        segundos: crono
+    });
+    localStorage.setItem("ranking", JSON.stringify(ranking));
+    swal({
+        type: 'success',
+        title: 'Felicitaciones ' + player + '!',
+        text: 'Ha ganado en ' + Math.round(crono).toString() + ' segundos.',
+        showConfirmButton: false,
+        timer: 3000
+    }).then((result) => {
+        location.reload();
+
+    });
+
+}
 
 function getPrimer(columna) {
     var i = -1;
@@ -150,10 +204,14 @@ function cursor() {
     );
 
     if (rojo == true) {
+        $("#player").html(pRojo);
+        $("#player").attr("class", "banner22");
         $("#color").attr("class", "Rojo");
         $("#elipse").attr("class", "elipse");
         $("#cuatro").attr("class", "cuatro");
     } else {
+        $("#player").html(pAmarillo);
+        $("#player").attr("class", "banner33");
         $("#color").attr("class", "Amarillo");
         $("#elipse").attr("class", "elipse2");
         $("#cuatro").attr("class", "cuatro2");
@@ -174,26 +232,29 @@ $(document).ready(function () {
 });
 
 function playBtn() {
-    $("#menu").hide();
-    $("#game").show();
-    drawTable();
-    cursorE = true;
-    cursor();
+    swal.mixin({
+        input: 'text',
+        confirmButtonText: 'Next &rarr;',
+        showCancelButton: true,
+        progressSteps: ['R', 'A']
+    }).queue([
+     'Jugador Rojo',
+  'Jugador Amarillo'
+]).then((result) => {
+        if (result.value) {
+            pRojo = result.value[0];
+            pAmarillo = result.value[1];
+            console.log(result);
+            $("#menu").hide();
+            $("#game").show();
+            drawTable();
+            cursorE = true;
+            cursor();
+            $(".knob").knob({
 
-    $(".knob").knob({
-        change: function (value) {
-            //console.log("change : " + value);
-        },
-        release: function (value) {
-            //console.log(this.$.attr('value'));
-            console.log("release : " + value);
-        },
-        cancel: function () {
-            console.log("cancel : ", this);
+            });
         }
     });
-
-
 
 }
 
@@ -201,7 +262,7 @@ function clock() {
     var $c = $(".kcurrent"),
         $b = $(".kblue"),
         $r = $(".kred");
-    var c = 30-(Date.now() - offset) / 1000;
+    var c = 30 - (Date.now() - offset) / 1000;
     if (rojo == true) {
         rCrono += (Date.now() - offset2) / 1000;
     } else {
