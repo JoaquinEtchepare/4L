@@ -89,8 +89,8 @@ function drawTable() {
                     cursor();
                 }
                 var i = getPrimer(k);
-                var x = 8 + 121 * (k + 0.5);
-                var y = 8 + 94 * (i + 0.5);
+                var x = 6 + 121 * (k + 0.5);
+                var y = 7 + 94 * (i + 0.5);
                 var old = $('#cursor').position();
 
                 $("#cursor").animate({
