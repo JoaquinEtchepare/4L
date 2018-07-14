@@ -8,6 +8,9 @@ td {
     top: 0px;
     z-index: 1;
 }
+body {
+    font-family: 'Bungee Shade', cursive !important;
+}
 
 table {
     border-collapse: collapse;
@@ -43,14 +46,14 @@ table {
 }
 
 .banner33 {
-    font-family: "Phosphate";
+font-family: 'Bungee Shade', cursive;
     text-align: center;
     color: rgb(255, 234, 0);
     font-size: 36px;
 }
 
 .banner22 {
-    font-family: "Phosphate";
+font-family: 'Bungee Shade', cursive;
     text-align: center;
     color: rgb(200, 0, 0);
     font-size: 36px;
@@ -58,7 +61,7 @@ table {
 
 .banner {
     font-size: 200px;
-    font-family: "Phosphate";
+font-family: 'Bungee Shade', cursive;
     color: rgb(255, 234, 0);
     line-height: 1.2;
     text-align: center;
