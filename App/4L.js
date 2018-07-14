@@ -1,9 +1,18 @@
 var rojo = true;
-var cursorE = true;
-var tablero = [0, 0, 0, 0, 0, 0];
-for (var i = 0; i < tablero.length; i++) {
-    tablero[i] = ['V', 'V', 'V', 'V', 'V', 'V', 'V'];
+var cursorE = false;
+var pRojo = "";
+var pAmarillo = "";
+var aCrono = 0;
+var rCrono = 0;
+var offset = Date.now();
+var offset2 = Date.now();
+if (!tablero) {
+    var tablero = [0, 0, 0, 0, 0, 0];
+    for (var i = 0; i < tablero.length; i++) {
+        tablero[i] = ['V', 'V', 'V', 'V', 'V', 'V', 'V'];
+    }
 }
+
 console.log(JSON.stringify(tablero));
 
 function sumarFila(numeroDeFila) {
@@ -72,34 +81,37 @@ function drawTable() {
 
             var k = i;
             cell.addEventListener("click", function (e) {
-                cursorE = false;
+                if (cursorE == true) {
+                    cursorE = false;
 
-                function onComplete() {
-                    if (rojo == true)
-                        tablero[i][k] = "R";
-                    else
-                        tablero[i][k] = "A";
-                    drawTable();
-                    $('#cursor').css({
-                        left: old.left,
-                        top: old.top
-                    });
-                    cursorE = true;
-                    rojo = !rojo;
-                    cursor();
+                    function onComplete() {
+                        if (rojo == true)
+                            tablero[i][k] = "R";
+                        else
+                            tablero[i][k] = "A";
+                        drawTable();
+                        $('#cursor').css({
+                            left: old.left,
+                            top: old.top
+                        });
+                        cursorE = true;
+                        rojo = !rojo;
+                        offset = Date.now();
+                        offset2 = Date.now();
+                        cursor();
+                    }
+                    var i = getPrimer(k);
+                    var x = 0 + 121 * (k + 0.5);
+                    var y = 0 + 94 * (i + 0.5);
+                    var old = $('#cursor').position();
+
+                    $("#cursor").animate({
+                        left: x.toString() + 'px'
+                    }, "fast");
+                    $("#cursor").animate({
+                        top: y.toString() + 'px'
+                    }, "slow", onComplete);
                 }
-                var i = getPrimer(k);
-                var x = 6 + 121 * (k + 0.5);
-                var y = 7 + 94 * (i + 0.5);
-                var old = $('#cursor').position();
-
-                $("#cursor").animate({
-                    left: x.toString() + 'px'
-                }, "fast");
-                $("#cursor").animate({
-                    top: y.toString() + 'px'
-                }, "slow", onComplete);
-
             });
             i++;
             row.appendChild(cell);
@@ -124,6 +136,19 @@ function getPrimer(columna) {
 }
 
 function cursor() {
+    $(".kred").trigger(
+        'configure', {
+            'min': 0,
+            'max': 30 + 0.66 * (aCrono + rCrono)
+        }
+    );
+    $(".kblue").trigger(
+        'configure', {
+            'min': 0,
+            'max': 30 + 0.66 * (aCrono + rCrono)
+        }
+    );
+
     if (rojo == true) {
         $("#color").attr("class", "Rojo");
         $("#elipse").attr("class", "elipse");
@@ -145,6 +170,47 @@ $(document).on('mousemove', function (e) {
 });
 
 $(document).ready(function () {
-    drawTable();
-    cursor();
+    $("#game").hide();
 });
+
+function playBtn() {
+    $("#menu").hide();
+    $("#game").show();
+    drawTable();
+    cursorE = true;
+    cursor();
+
+    $(".knob").knob({
+        change: function (value) {
+            //console.log("change : " + value);
+        },
+        release: function (value) {
+            //console.log(this.$.attr('value'));
+            console.log("release : " + value);
+        },
+        cancel: function () {
+            console.log("cancel : ", this);
+        }
+    });
+
+
+
+}
+
+function clock() {
+    var $c = $(".kcurrent"),
+        $b = $(".kblue"),
+        $r = $(".kred");
+    var c = 30-(Date.now() - offset) / 1000;
+    if (rojo == true) {
+        rCrono += (Date.now() - offset2) / 1000;
+    } else {
+        aCrono += (Date.now() - offset2) / 1000;
+    }
+    offset2 = Date.now();
+    $c.val(c).trigger("change");
+    $b.val(aCrono).trigger("change");
+    $r.val(rCrono).trigger("change");
+    setTimeout("clock()", 80);
+}
+clock();
