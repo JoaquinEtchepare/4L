@@ -1,4 +1,5 @@
 var rojo = true;
+var cursorE = true;
 var tablero = [0, 0, 0, 0, 0, 0];
 for (var i = 0; i < tablero.length; i++) {
     tablero[i] = ['V', 'V', 'V', 'V', 'V', 'V', 'V'];
@@ -58,7 +59,7 @@ function sumarDiagonalB(puntoDePartida) {
 
 function drawTable() {
     var tableBody = document.getElementById('4Ltable');
-    tableBody.innerHTML="";
+    tableBody.innerHTML = "";
     tablero.forEach(function (rowData) {
         var row = document.createElement('tr');
         var i = 0;
@@ -68,17 +69,37 @@ function drawTable() {
                 cell.innerHTML = '<div class="celda"<div class="Rojo"><div class="elipse"></div><div class="cuatro">4</div></div></div>';
             else if (cellData == "A")
                 cell.innerHTML = '<div class="celda"<div class="Amarillo"><div class="elipse2"></div><div class="cuatro2">4</div></div></div>';
-            
+
             var k = i;
             cell.addEventListener("click", function (e) {
+                cursorE = false;
+
+                function onComplete() {
+                    if (rojo == true)
+                        tablero[i][k] = "R";
+                    else
+                        tablero[i][k] = "A";
+                    drawTable();
+                    $('#cursor').css({
+                        left: old.left,
+                        top: old.top
+                    });
+                    cursorE = true;
+                    rojo = !rojo;
+                    cursor();
+                }
                 var i = getPrimer(k);
-                if (rojo == true)
-                    tablero[i][k] = "R";
-                else
-                    tablero[i][k] = "A";
-                drawTable();
-                rojo = !rojo;
-                cursor();
+                var x = 8 + 121 * (k + 0.5);
+                var y = 8 + 94 * (i + 0.5);
+                var old = $('#cursor').position();
+
+                $("#cursor").animate({
+                    left: x.toString() + 'px'
+                }, "fast");
+                $("#cursor").animate({
+                    top: y.toString() + 'px'
+                }, "slow", onComplete);
+
             });
             i++;
             row.appendChild(cell);
@@ -115,10 +136,12 @@ function cursor() {
 }
 
 $(document).on('mousemove', function (e) {
-    $('#cursor').css({
-        left: e.pageX,
-        top: e.pageY
-    });
+    if (cursorE == true) {
+        $('#cursor').css({
+            left: e.pageX,
+            top: e.pageY
+        });
+    }
 });
 
 $(document).ready(function () {
