@@ -22,8 +22,8 @@
             <div>
                 <button type="button" onclick="playBtn()" class="btn btn-danger btn-lg">JUGAR</button>
                 <button type="button" onclick="seleccionarPartida()" class="btn btn-danger btn-lg">CARGAR PARTIDA</button>
-                <button type="button"  data-toggle="modal" data-target=".ranking-modal" class="btn btn-danger btn-lg">RANKING</button>
-                <button type="button" onclick="ayudaBtn()" class="btn btn-danger btn-lg">AYUDA</button>
+                <button type="button" data-toggle="modal" data-target=".ranking-modal" class="btn btn-danger btn-lg">RANKING</button>
+                <button type="button" data-toggle="modal" data-target=".ayuda-modal" class="btn btn-danger btn-lg">AYUDA</button>
             </div>
         </div>
     </div>
@@ -61,28 +61,64 @@
     </div>
     <!-- Large modal -->
 
-<div class="modal fade bd-example-modal-lg ranking-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-    <div class="modal-header">RANKING</h5>
-     
-      </div>
-      <div class="modal-body" >
-    <table>
-        <thead>
-            <th>#</th>
-            <th>Jugador</th>
-            <th>Tiempo</th>
-        </thead>
-        <tbody id="ranking"></tbody>
-    </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
-      </div>
+    <div class="modal fade bd-example-modal-lg ranking-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>RANKING</h3>
+
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <thead>
+                            <th>
+                                <h5>#</h5>
+                            </th>
+                            <th>
+                                <h5>Jugador</h5>
+                            </th>
+                            <th>
+                                <h5>Tiempo</h5>
+                            </th>
+                        </thead>
+                        <tbody id="ranking"></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+
+    <div class="modal fade bd-example-modal-lg ayuda-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>AYUDA</h3>
+
+                </div>
+                <div class="modal-body">
+                    <h5>4 EN LINEA</h5>
+                    <p>Es un juego de mesa para dos jugadores, en el que se introducen fichas en un tablero vertical con el objetivo de alinear cuatro consecutivas de un mismo color. Fue creado en 1974 por Ned Strongin y Howard Wexler para Milton Bradley Company. </p>
+                    <h5>Reglas del juego</h5>
+                    <p> El objetivo de Conecta 4 es alinear cuatro fichas sobre un tablero formado por seis filas y siete columnas. Por turnos, los jugadores deben introducir una ficha en la columna que prefieran (siempre que no esté completa) y ésta caerá a la posición más baja. Gana el primer jugador que logre alinear 4 fichas de manera horizontal, vertical o en diagonal. Si todas las columnas están llenas pero nadie ha hecho una fila válida, hay empate. </p>
+                    <h5>Jugar</h5>
+                    <p> Para comenzar una nueva partida hacer Click en “Jugar”. El Jugador Rojo debe escribir su nombre y luego hacer Click o presionar Enter en “NEXT”; el Jugador Amarillo debe hacer lo mismo. Si desean cancelar la partida o uno de los jugadores escribió mal su nombre hacer Click o presionar Enter en “CANCELAR” y vuelva al paso uno. Una vez comenzada la partida los jugadores deben harrastrar su ficha usando el mouse hasta la columna en que desean introducirla y hacer Click. Si el jugador demora más de 30 segundos en decidir la jugada se hará de manera aleatoria. A la derecha del tablero hay un cronómetro que indica en azul la cantidad de tiempo que el jugador dipone. Para dejar de jugar haca Click en “MENU” el juego volverá al menú principal. </p>
+                    <h5>Guardar partida</h5>
+                    <p> Para guardar una partida uno de los jugadores deberá hacer Clic en “GUARDAR” este botón se encuentra a la derecha del tablero, debajo del cronómetro. La parida se guardará con los nombres de ambos jugadores y la fecha para diferenciarla en el caso de existir una o más paridas con los mismos nombres. Luego de guardar el juego irá al menú principal.</p>
+                    <h5>Cargar Partida </h5>
+                    <p>Hacer Click en “CARGAR PARTIDA” luego elegir la partida que desea reanudar y hacer Click en “OK”. En el caso de no desear retomar ninguna partida hacer Click en “CANCELAR”</p>
+                    <h5>Ranking</h5>
+                    <p>
+                        Muestra los 10 ganadores que lograron la victoria en el menor tiempo. Para ir al mismo debe hacer Click en “RANKING” para salir del mismo hacer Click en “CANCELAR”.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </body>
