@@ -381,42 +381,51 @@ function playBtn() {
 }
 
 function jugar() {
-    var jugado = false;
-    tablero.forEach(
-        function (fila, nroFila) {
-            fila.forEach(
-                function (celda, columna) {
-                    if (celda == "V" && jugado == false) {
-                        function onComplete() {
-                            $('#cursor').css({
-                                left: old.left,
-                                top: old.top
-                            });
-                            rojo = !rojo;
-                            offset = Date.now();
-                            offset2 = Date.now();
-                            cursor();
-                            cursorE = true;
-                            drawTable();
-                        }
-                        var i2 = getPrimer(columna);
-                        if (rojo == true)
-                            tablero[i2][columna] = "R";
-                        else
-                            tablero[i2][columna] = "A";
-                        var old = $('#cursor').position();
-                        var x = 0 + 121 * (columna + 0.5);
-                        var y = 0 + 94 * (i2 + 0.5);
-                        jugado = true;
-                        $("#cursor").animate({
-                            left: x.toString() + 'px'
-                        }, "fast");
-                        $("#cursor").animate({
-                            top: y.toString() + 'px'
-                        }, "slow", onComplete);
-                    }
+    check();
+
+    function play(fila, columna) {
+        if (tablero[fila][columna] == "V" && jugado == false) {
+            function onComplete() {
+                $('#cursor').css({
+                    left: old.left,
+                    top: old.top
                 });
-        });
+                rojo = !rojo;
+                offset = Date.now();
+                offset2 = Date.now();
+                cursor();
+                cursorE = true;
+                drawTable();
+            }
+            var i2 = getPrimer(columna);
+            if (rojo == true)
+                tablero[i2][columna] = "R";
+            else
+                tablero[i2][columna] = "A";
+            var old = $('#cursor').position();
+            var x = 0 + 121 * (columna + 0.5);
+            var y = 0 + 94 * (i2 + 0.5);
+            jugado = true;
+            $("#cursor").animate({
+                left: x.toString() + 'px'
+            }, "fast");
+            $("#cursor").animate({
+                top: y.toString() + 'px'
+            }, "slow", onComplete);
+        }
+
+    }
+    var fila = -1;
+    var columna = 0;
+    var jugado = false;
+    do {
+        columna = Math.round((tablero[0].length - 1) * Math.random());
+        fila = getPrimer(columna);
+    }
+    while (fila == -1);
+    play(fila,columna);
+
+
 }
 
 
