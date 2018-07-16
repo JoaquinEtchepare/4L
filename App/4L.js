@@ -241,18 +241,18 @@ function check() {
         if (sumarColumna(i).indexOf("AAAA") >= 0)
             gano(pAmarillo, aCrono);
     }
-         
-     var aux=0;
 
-for (x = 0; x < 7; x++) {
-   for (var i = 0; i < tablero.length; i++) {
-        if(tablero[i][x]!="V")
-        aux++;
+    var aux = 0;
 
-if(((tablero.length)*7)==aux)
-    empate();
+    for (x = 0; x < 7; x++) {
+        for (var i = 0; i < tablero.length; i++) {
+            if (tablero[i][x] != "V")
+                aux++;
+            if (((tablero.length) * 7) == aux)
+                empate();
         }
-        }
+    }
+
     partidasA.forEach(function (item) {
         if (sumarDiagonalA(item).indexOf("AAAA") >= 0)
             gano(pAmarillo, aCrono);
@@ -281,23 +281,19 @@ function gano(player, crono) {
         timer: 3000
     }).then((result) => {
         location.reload();
-
     });
 
 }
 
-function empate (){
+function empate() {
     swal({
-        type: 'danger',
-        text: "......" ,
+        type: 'error',
+        title: "Empate!",
         showConfirmButton: false,
         timer: 3000
     }).then((result) => {
         location.reload();
-
     });
-
-
 }
 
 function getPrimer(columna) {
